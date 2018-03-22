@@ -33,10 +33,10 @@ class App extends Component {
       <table>
         <thead>
           <tr>
-            <th><button onClick={() => { this.handlerSortSelect(SORT_BY_ID); }}>ID</button></th>
-            <th><button onClick={() => { this.handlerSortSelect(SORT_BY_USER); }}>User</button></th>
-            <th><button onClick={() => { this.handlerSortSelect(SORT_BY_TITLE); }}>Title</button></th>
-            <th><button onClick={() => { this.handlerSortSelect(SORT_BY_BODY); }}>Body</button></th>
+            <th><h3 onClick={() => { this.handlerSortSelect(SORT_BY_ID); }}>ID</h3></th>
+            <th><h3 onClick={() => { this.handlerSortSelect(SORT_BY_USER); }}>User</h3></th>
+            <th><h3 onClick={() => { this.handlerSortSelect(SORT_BY_TITLE); }}>Title</h3></th>
+            <th><h3 onClick={() => { this.handlerSortSelect(SORT_BY_BODY); }}>Body</h3></th>
           </tr>
         </thead>
         <tbody>
