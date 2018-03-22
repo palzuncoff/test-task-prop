@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loadPosts } from '../AC';
-import { sortedPosts } from '../selectors';
+import { loadPosts, sortPosts } from '../AC';
+import { SORT_BY_ID, SORT_BY_USER, SORT_BY_TITLE, SORT_BY_BODY} from '../constants'
+import { sortedPosts, getPostLoaded, getPostsLoading } from '../selectors';
 import './App.css';
 
 class App extends Component {
+  handlerSortSelect = culumn => {
+    this.props.sortPosts(culumn)
+  }
+
   componentDidMount() {
-    this.props.loadPosts();
+    console.log('-----');
+    const { loaded } = this.props;
+    if (!loaded) {
+      this.props.loadPosts();
+    }
   }
 
   render() {
@@ -24,10 +33,10 @@ class App extends Component {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>User</th>
-            <th>Tytle</th>
-            <th>Body</th>
+            <th><button onClick={() => { this.handlerSortSelect(SORT_BY_ID); }}>ID</button></th>
+            <th><button onClick={() => { this.handlerSortSelect(SORT_BY_USER); }}>User</button></th>
+            <th><button onClick={() => { this.handlerSortSelect(SORT_BY_TITLE); }}>Title</button></th>
+            <th><button onClick={() => { this.handlerSortSelect(SORT_BY_BODY); }}>Body</button></th>
           </tr>
         </thead>
         <tbody>
@@ -41,20 +50,23 @@ class App extends Component {
 App.propTypes = {
   loadPosts: PropTypes.func.isRequired,
   posts: PropTypes.array,
+  loaded: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 App.defaultProps = {
   posts: [],
 };
 
-App.state = {};
-
 const mapStateToProps = state => ({
-  posts: sortedPosts(state, 'userId'),
+  posts: sortedPosts(state),
+  loaded: getPostLoaded(state),
+  loading: getPostsLoading(state),
 });
 
 const mapDispatchToProps = {
   loadPosts,
+  sortPosts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

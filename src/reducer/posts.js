@@ -1,11 +1,12 @@
 import { Record, Map, List } from 'immutable';
-import { LOAD_ALL_POSTS, START, SUCCESS, FAIL } from '../constants';
+import { LOAD_ALL_POSTS, START, SUCCESS, FAIL, SORT } from '../constants';
 
 const DefaultState = Record({
   loading: false,
   loaded: false,
   entities: new List([]),
   error: new Map({}),
+  sort: 'id',
 });
 
 export default (state = new DefaultState(), action) => {
@@ -21,6 +22,9 @@ export default (state = new DefaultState(), action) => {
     case LOAD_ALL_POSTS + FAIL:
       return state.setIn(['error'], payload.error)
         .setIn(['loading'], false).setIn(['loaded'], false);
+
+    case SORT:
+      return state.updateIn(['sort'], value => (value === payload.column ? value : payload.column));
 
     default:
       return state;
