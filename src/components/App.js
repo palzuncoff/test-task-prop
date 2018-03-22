@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import { loadPosts } from '../AC';
+import { sortedPosts } from '../selectors';
 import './App.css';
 
 class App extends Component {
@@ -10,6 +11,15 @@ class App extends Component {
   }
 
   render() {
+    const { posts } = this.props;
+    const renderTable = post => (
+      <tr key={post.id}>
+        <td>{post.id}</td>
+        <td>{post.userId}</td>
+        <td>{post.title}</td>
+        <td>{post.body}</td>
+      </tr>);
+
     return (
       <table>
         <thead>
@@ -21,18 +31,7 @@ class App extends Component {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>Eve</td>
-            <td>Jackson</td>
-            <td>94</td>
-            <td>94</td>
-          </tr>
+          {posts.map(post => renderTable(post))}
         </tbody>
       </table>
     );
@@ -40,12 +39,19 @@ class App extends Component {
 }
 
 App.propTypes = {
-  loadPosts: PropType.func.isRequired,
+  loadPosts: PropTypes.func.isRequired,
+  posts: PropTypes.array,
+};
+
+App.defaultProps = {
+  posts: [],
 };
 
 App.state = {};
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  posts: sortedPosts(state, 'userId'),
+});
 
 const mapDispatchToProps = {
   loadPosts,
