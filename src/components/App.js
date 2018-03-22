@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import './App.css'
+import { connect } from 'react-redux';
+import PropType from 'prop-types';
+import { loadPosts } from '../AC';
+import './App.css';
 
 class App extends Component {
-  state = {}
+  componentDidMount() {
+    this.props.loadPosts();
+  }
 
   render() {
     return (
@@ -34,4 +39,16 @@ class App extends Component {
   }
 }
 
-export default App;
+App.propTypes = {
+  loadPosts: PropType.func.isRequired,
+};
+
+App.state = {};
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = {
+  loadPosts,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
