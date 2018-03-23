@@ -40,7 +40,7 @@ class App extends Component {
           </tr>
         </thead>
         <tbody>
-          {posts.map(post => renderTable(post))}
+          {posts.map(renderTable)}
         </tbody>
       </table>
     );
