@@ -6,7 +6,7 @@ export function loadPosts() {
         if (!loaded) {
             dispatch({ type: LOAD_ALL_POSTS + START });
 
-            fetch('http://jsonplaceholder.typicode.com/posts')
+            fetch(process.env.REACT_APP_API)
                 .then((res) => {
                     if (res.status >= 400) throw new Error(res.statusText);
                     return res.json();
