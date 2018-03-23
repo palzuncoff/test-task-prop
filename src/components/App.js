@@ -7,13 +7,14 @@ import { sortedPosts, getPostLoaded, getPostsLoading } from '../selectors';
 import Loader from './loader';
 import './App.css';
 
-class App extends Component {
+export class App extends Component {
     componentDidMount() {
         const { loaded } = this.props;
         if (!loaded) {
             this.props.loadPosts();
         }
     }
+
 
     handlerSortSelect = culumn => {
         this.props.sortPosts(culumn)
@@ -32,9 +33,9 @@ class App extends Component {
         if (loading) return <Loader />
 
         return (
-            <table>
+            <table id="posts-table">
                 <thead>
-                    <tr>
+                    <tr className="table-head">
                         <th onClick={() => { this.handlerSortSelect(SORT_BY_ID); }}>ID</th>
                         <th onClick={() => { this.handlerSortSelect(SORT_BY_USER); }}>User</th>
                         <th onClick={() => { this.handlerSortSelect(SORT_BY_TITLE); }}>Title</th>
