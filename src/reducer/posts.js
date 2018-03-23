@@ -1,7 +1,7 @@
 import { Record, Map, List } from 'immutable';
 import { LOAD_ALL_POSTS, START, SUCCESS, FAIL, SORT, REVERSE } from '../constants';
 
-const DefaultState = Record({
+export const DefaultState = Record({
     loading: false,
     loaded: false,
     entities: new List([]),
@@ -21,7 +21,7 @@ export default (state = new DefaultState(), action) => {
                 .setIn(['loading'], false).setIn(['loaded'], true);
 
         case LOAD_ALL_POSTS + FAIL:
-            return state.setIn(['error'], payload.error)
+            return state.mergeIn(['error'], payload.error)
                 .setIn(['loading'], false).setIn(['loaded'], false);
 
         case SORT:
