@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "eslint-config-prettier": "^2.9.0",
     "immutable": "^4.0.0-rc.9",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
