@@ -1,4 +1,4 @@
-import { LOAD_ALL_POSTS, START, FAIL, SUCCESS, SORT } from '../constants';
+import { LOAD_ALL_POSTS, START, FAIL, SUCCESS, SORT, REVERSE } from '../constants';
 
 export function loadPosts() {
     return (dispatch, getState) => {
@@ -26,8 +26,15 @@ export function loadPosts() {
 }
 
 export function sortPosts(column) {
-    return {
-        type: SORT,
-        payload: { column },
-    };
+    return (dispatch, getState) => {
+        const { sort } = getState().posts
+        if (column === sort) {
+            dispatch({ type: REVERSE })
+        } else {
+            dispatch({
+                type: SORT,
+                payload: { column },
+            })
+        }
+    }
 }

@@ -1,5 +1,5 @@
 import { Record, Map, List } from 'immutable';
-import { LOAD_ALL_POSTS, START, SUCCESS, FAIL, SORT } from '../constants';
+import { LOAD_ALL_POSTS, START, SUCCESS, FAIL, SORT, REVERSE } from '../constants';
 
 const DefaultState = Record({
     loading: false,
@@ -7,6 +7,7 @@ const DefaultState = Record({
     entities: new List([]),
     error: new Map({}),
     sort: 'id',
+    reverse: false,
 });
 
 export default (state = new DefaultState(), action) => {
@@ -24,7 +25,11 @@ export default (state = new DefaultState(), action) => {
                 .setIn(['loading'], false).setIn(['loaded'], false);
 
         case SORT:
-            return state.updateIn(['sort'], value => (value === payload.column ? value : payload.column));
+            return state.update('sort', value => (value === payload.column ? value : payload.column))
+                .set('reverse', false)
+
+        case REVERSE:
+            return state.update('reverse', value => !value )
 
         default:
             return state;

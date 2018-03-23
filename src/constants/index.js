@@ -3,6 +3,7 @@ export const START = '_START';
 export const SUCCESS = '_SUCCESS';
 export const SORT = 'SORT';
 export const FAIL = '_FAIL';
+export const REVERSE = 'REVERSE';
 
 export const SORT_BY_ID = 'id';
 export const SORT_BY_USER = 'userId';
